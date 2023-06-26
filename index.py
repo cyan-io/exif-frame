@@ -1,5 +1,4 @@
-from PIL import Image, ImageDraw, ImageFont
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 from PIL.ExifTags import TAGS
 from util import (
     get_exif_data,
@@ -15,7 +14,7 @@ import pathlib
 import os
 
 # For Distribution
-# os.chdir(pathlib.Path(sys.executable).parent)
+os.chdir(pathlib.Path(sys.executable).parent)
 
 print_Y("------------------------------------------------")
 print_Y(
@@ -64,6 +63,7 @@ def exec(image_path):
 
     # 绘图
     image_original = Image.open(image_path).convert("RGBA")
+    image_original = ImageOps.exif_transpose(image_original)
     image_size = image_original.size
 
     image = Image.new("RGB", (image_size[0], image_size[1] + 450), (255, 255, 255))

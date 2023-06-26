@@ -40,10 +40,9 @@ def get_camera_info(exif_data):
 
     if "ExposureTime" in exif_data:
         exposure_time = exif_data["ExposureTime"]
-        if exposure_time < 1.0:
-            camera_info["ExposureTime"] = f"1/{1 // exposure_time}s"
-        else:
-            camera_info["ExposureTime"] = exposure_time
+        camera_info["ExposureTime"] = (
+            f"1/{1 // exposure_time}s" if exposure_time < 1.0 else f"{exposure_time}s"
+        )
 
     if "FNumber" in exif_data:
         f_number = exif_data["FNumber"]

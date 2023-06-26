@@ -76,7 +76,6 @@ pyinstaller -D --add-data ./font;font --add-data ./logo;logo --add-data config.y
 #### Unix Like（untested）
 
 ```bash
-pip install pyinstaller
 pyinstaller -D --add-data ./font:font --add-data ./logo:logo --add-data config.yml:. -n frame index.py
 ```
 
