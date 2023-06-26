@@ -1,16 +1,17 @@
 from PIL import Image
 from PIL.ExifTags import TAGS
 
+
 def print_R(text: str):
-    print('\033[0;31m'+text+'\033[0m')
+    print("\033[0;31m" + text + "\033[0m")
 
 
 def print_G(text: str):
-    print('\033[0;32m'+text+'\033[0m')
+    print("\033[0;32m" + text + "\033[0m")
 
 
 def print_Y(text: str):
-    print('\033[0;33m'+text+'\033[0m')
+    print("\033[0;33m" + text + "\033[0m")
 
 
 def get_exif_data(image_path):
@@ -31,28 +32,31 @@ def get_exif_data(image_path):
 def get_camera_info(exif_data):
     camera_info = {}
 
-    if 'Make' in exif_data:
-        camera_info['Make'] = exif_data['Make']
+    if "Make" in exif_data:
+        camera_info["Make"] = exif_data["Make"]
 
-    if 'Model' in exif_data:
-        camera_info['Model'] = exif_data['Model']
+    if "Model" in exif_data:
+        camera_info["Model"] = exif_data["Model"]
 
-    if 'ExposureTime' in exif_data:
-        exposure_time = exif_data['ExposureTime']
-        camera_info['ExposureTime'] = 1 // exposure_time
+    if "ExposureTime" in exif_data:
+        exposure_time = exif_data["ExposureTime"]
+        if exposure_time < 1.0:
+            camera_info["ExposureTime"] = f"1/{1 // exposure_time}s"
+        else:
+            camera_info["ExposureTime"] = exposure_time
 
-    if 'FNumber' in exif_data:
-        f_number = exif_data['FNumber']
-        camera_info['FNumber'] = f_number
+    if "FNumber" in exif_data:
+        f_number = exif_data["FNumber"]
+        camera_info["FNumber"] = f_number
 
-    if 'ISOSpeedRatings' in exif_data:
-        camera_info['ISO'] = exif_data['ISOSpeedRatings']
+    if "ISOSpeedRatings" in exif_data:
+        camera_info["ISO"] = exif_data["ISOSpeedRatings"]
 
-    if 'DateTimeOriginal' in exif_data:
-        camera_info['DateTimeOriginal'] = exif_data['DateTimeOriginal']
+    if "DateTimeOriginal" in exif_data:
+        camera_info["DateTimeOriginal"] = exif_data["DateTimeOriginal"]
 
-    if 'LensModel' in exif_data:
-        camera_info['LensModel'] = exif_data['LensModel']
+    if "LensModel" in exif_data:
+        camera_info["LensModel"] = exif_data["LensModel"]
 
     return camera_info
 

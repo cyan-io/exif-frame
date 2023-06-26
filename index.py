@@ -15,12 +15,13 @@ import pathlib
 import os
 
 # For Distribution
-os.chdir(pathlib.Path(sys.executable).parent)
+# os.chdir(pathlib.Path(sys.executable).parent)
 
 print_Y("------------------------------------------------")
-print_Y("\n查看源代码或下载最新版本\nView Source Code or Download Latest Release from\n")
-print_Y("\thttps://github.com/cyan-io/exif-frame\n")
-print_Y("------------------------------------------------\n\n")
+print_Y(
+    "\n  Exif-Frame v0.91\n\n\thttps://github.com/cyan-io/exif-frame\n\thttps://space.bilibili.com/266211787\n"
+)
+print_Y("------------------------------------------------\n")
 
 
 # 加载配置
@@ -45,18 +46,18 @@ COLOR_GREY = (100, 100, 100)
 
 
 def exec(image_path):
-    print_Y(f"\n>>>\t {image_path}")
+    print(f"\n>>> {image_path}")
 
     # 获取Exif
     exif_data = get_exif_data(image_path)
     camera_info = get_camera_info(exif_data)
 
-    text_ise = "ISO{} f{} 1/{}s".format(
+    text_ise = "ISO{} f{} {}".format(
         camera_info.get("ISO", "N/A"),
         camera_info.get("FNumber", "N/A"),
         camera_info.get("ExposureTime", "N/A"),
     )
-    text_make = "{}".format(camera_info.get("Make", "N/A"))
+    text_model = "{}".format(camera_info.get("Model", "N/A"))
     text_lens = "{}".format(camera_info.get("LensModel", "N/A"))
     text_datetime = "{}".format(camera_info.get("DateTimeOriginal", "N/A"))
     text_lens = get_printalbe_text(text_lens)
@@ -82,12 +83,12 @@ def exec(image_path):
         font=font_regular,
     )
 
-    max_len = max(font_bold.getlength(text_make), font_regular.getlength(text_lens))
+    max_len = max(font_bold.getlength(text_model), font_regular.getlength(text_lens))
     position_make = (image_size[0] - PADDING - max_len, PADDING_TOP)
     position_lens = (image_size[0] - PADDING - max_len, PADDING_TOP + 120)
 
     draw.text(
-        position_make, text_make, fill=COLOR_BLACK, font=font_bold, align="left",
+        position_make, text_model, fill=COLOR_BLACK, font=font_bold, align="left",
     )
 
     draw.line(
@@ -103,14 +104,15 @@ def exec(image_path):
         position_lens, text_lens, fill=COLOR_GREY, font=font_regular,
     )
 
+    make = camera_info.get("Make")
     try:
-        logo = Image.open(f"./logo/{text_make}.png")
+        logo = Image.open(f"./logo/{make}.png")
         width, height = logo.size
         new_width = int((210 / height) * width)
         logo = logo.resize((new_width, 210), Image.LANCZOS).convert("RGBA")
 
     except Exception as e:
-        print_R(f"请存放 {text_make}.png 至 logo 文件夹\nMissing {text_make}.png in ./logo folder")
+        print_R(f"请存放 {make}.png 至 logo 文件夹\nMissing {make}.png in ./logo folder")
         return
 
     image.paste(
@@ -134,4 +136,5 @@ if __name__ == "__main__":
     for image_path in argv:
         exec(image_path)
 
-    input("\n\n回车键退出 | Enter to exit")
+    print_G("\n\n回车键退出 | Enter to exit")
+    input()
