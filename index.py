@@ -18,7 +18,7 @@ os.chdir(pathlib.Path(sys.executable).parent)
 
 print_Y("------------------------------------------------")
 print_Y(
-    "\n  Exif-Frame v0.91\n\n\thttps://github.com/cyan-io/exif-frame\n\thttps://space.bilibili.com/266211787\n"
+    "\n  Exif-Frame v0.92\n\n\thttps://github.com/cyan-io/exif-frame\n\thttps://space.bilibili.com/266211787\n"
 )
 print_Y("------------------------------------------------\n")
 
@@ -37,7 +37,7 @@ font_bold = ImageFont.truetype(
 )
 # 边距
 PADDING = int(config.get("padding", 0))
-
+DEFAULT_EXIF_MESSAGE = config.get("default_exif_message", "N/A")
 
 PADDING_LEFT = PADDING
 COLOR_BLACK = (0, 0, 0)
@@ -50,15 +50,23 @@ def exec(image_path):
     # 获取Exif
     exif_data = get_exif_data(image_path)
     camera_info = get_camera_info(exif_data)
-
-    text_ise = "ISO{} f{} {}".format(
-        camera_info.get("ISO", "N/A"),
-        camera_info.get("FNumber", "N/A"),
-        camera_info.get("ExposureTime", "N/A"),
+    a, b, c = (
+        camera_info.get("ISO", DEFAULT_EXIF_MESSAGE),
+        camera_info.get("FNumber", DEFAULT_EXIF_MESSAGE),
+        camera_info.get("ExposureTime", DEFAULT_EXIF_MESSAGE),
     )
-    text_model = "{}".format(camera_info.get("Model", "N/A"))
-    text_lens = "{}".format(camera_info.get("LensModel", "N/A"))
-    text_datetime = "{}".format(camera_info.get("DateTimeOriginal", "N/A"))
+    text_ise = (
+        DEFAULT_EXIF_MESSAGE
+        if a == DEFAULT_EXIF_MESSAGE
+        or b == DEFAULT_EXIF_MESSAGE
+        or c == DEFAULT_EXIF_MESSAGE
+        else "ISO{} f{} {}".format(a, b, c)
+    )
+    text_model = "{}".format(camera_info.get("Model", DEFAULT_EXIF_MESSAGE))
+    text_lens = "{}".format(camera_info.get("LensModel", DEFAULT_EXIF_MESSAGE))
+    text_datetime = "{}".format(
+        camera_info.get("DateTimeOriginal", DEFAULT_EXIF_MESSAGE)
+    )
     text_lens = get_printalbe_text(text_lens)
 
     # 绘图

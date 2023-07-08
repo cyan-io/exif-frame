@@ -5,3 +5,5 @@ font_bold : ./font/NotoSansSC-Bold.otf
 padding : 120
 # 字体大小
 font_size : 80
+# 缺省值
+default_exif_message : "N/A"
