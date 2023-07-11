@@ -18,7 +18,7 @@ os.chdir(pathlib.Path(sys.executable).parent)
 
 print_Y("------------------------------------------------")
 print_Y(
-    "\n  Exif-Frame v0.92\n\n\thttps://github.com/cyan-io/exif-frame\n\thttps://space.bilibili.com/266211787\n"
+    "\n  Exif-Frame v0.93\n\n\thttps://github.com/cyan-io/exif-frame\n\thttps://space.bilibili.com/266211787\n"
 )
 print_Y("------------------------------------------------\n")
 
@@ -50,24 +50,28 @@ def exec(image_path):
     # 获取Exif
     exif_data = get_exif_data(image_path)
     camera_info = get_camera_info(exif_data)
-    a, b, c = (
+    a, b, c, d = (
+        camera_info.get("FocalLength", DEFAULT_EXIF_MESSAGE),
         camera_info.get("ISO", DEFAULT_EXIF_MESSAGE),
         camera_info.get("FNumber", DEFAULT_EXIF_MESSAGE),
         camera_info.get("ExposureTime", DEFAULT_EXIF_MESSAGE),
     )
     text_ise = (
         DEFAULT_EXIF_MESSAGE
-        if a == DEFAULT_EXIF_MESSAGE
-        or b == DEFAULT_EXIF_MESSAGE
-        or c == DEFAULT_EXIF_MESSAGE
-        else "ISO{} f{} {}".format(a, b, c)
+        if DEFAULT_EXIF_MESSAGE in (a, b, c, d)
+        else "{}mm ISO{} f{} {}".format(int(a), b, c, d)
     )
+    make = camera_info.get("Make")
     text_model = "{}".format(camera_info.get("Model", DEFAULT_EXIF_MESSAGE))
     text_lens = "{}".format(camera_info.get("LensModel", DEFAULT_EXIF_MESSAGE))
     text_datetime = "{}".format(
         camera_info.get("DateTimeOriginal", DEFAULT_EXIF_MESSAGE)
     )
+
+    make = get_printalbe_text(make)
+    text_model = get_printalbe_text(text_model)
     text_lens = get_printalbe_text(text_lens)
+    text_datetime = get_printalbe_text(text_datetime)
 
     # 绘图
     image_original = Image.open(image_path).convert("RGBA")
@@ -112,7 +116,6 @@ def exec(image_path):
         position_lens, text_lens, fill=COLOR_GREY, font=font_regular,
     )
 
-    make = camera_info.get("Make")
     try:
         logo = Image.open(f"./logo/{make}.png")
         width, height = logo.size

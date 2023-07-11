@@ -57,6 +57,9 @@ def get_camera_info(exif_data):
     if "LensModel" in exif_data:
         camera_info["LensModel"] = exif_data["LensModel"]
 
+    if "FocalLength" in exif_data:
+        camera_info["FocalLength"] = exif_data["FocalLength"]
+
     return camera_info
 
 
