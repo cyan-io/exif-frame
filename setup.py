@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="Exif-Frame",
+    name="exif-frame",
     version="v1.0.0",
     author="Cyan@https://github.com/cyan-io",
-    author_email="cyan-io#outlook.com",
+    author_email="cyan-io@outlook.com",
     url="https://github.com/cyan-io/exif-frame",
     download_url="https://github.com/cyan-io/exif-frame/releases",
     license="MPL 2.0",

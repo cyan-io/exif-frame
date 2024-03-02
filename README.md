@@ -11,16 +11,35 @@
 
 ## 使用方式
 
-有以下使用方式：
+### 使用`pip`安装（推荐）
 
-1. 使用`pip`安装（推荐）
+```bash
+pip install exif-frame
+```
+to Avoid Mirrors' Lantency
+```bash
+pip install exif-frame -i https://pypi.org/simple
+```
 
+---
 
+<u>OR</u> clone this repo
 
-1. 使用预构建的`release`文件 
-2. 直接运行脚本（不推荐）
+```bash
+git clone git@github.com:cyan-io/exif-frame.git
+```
 
-### 小 tip
+install
+
+```bash
+pip install .
+```
+
+### 使用预构建的`release`文件 
+
+### 直接运行脚本（不推荐）
+
+## 小 tip
 
 #### ① 拖拽文件
 
@@ -65,6 +84,10 @@
 
 ```bash
 pip install exif-frame
+```
+to Avoid Mirrors' Lantency
+```bash
+pip install exif-frame -i https://pypi.org/simple
 ```
 
 ---
