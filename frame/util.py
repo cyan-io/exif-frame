@@ -2,16 +2,24 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 
 
-def print_R(text: str):
-    print("\033[0;31m" + text + "\033[0m")
+def _print_in_color(color: str, *args, **kwargs):
+    args = [str(_) for _ in args]
+    args[0] = color + args[0]
+    args[-1] = args[-1] + "\033[0m"
+    print(*args, **kwargs)
 
 
-def print_G(text: str):
-    print("\033[0;32m" + text + "\033[0m")
+def print_in_red(*args, **kwargs):
+    _print_in_color("\033[0;31m", *args, **kwargs)
 
 
-def print_Y(text: str):
-    print("\033[0;33m" + text + "\033[0m")
+def print_in_green(*args, **kwargs):
+    _print_in_color("\033[0;32m", *args, **kwargs)
+    print(*args, **kwargs)
+
+
+def print_in_yellow(*args, **kwargs):
+    _print_in_color("\033[0;33m", *args, **kwargs)
 
 
 def get_exif_data(image_path):

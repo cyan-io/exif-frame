@@ -1,9 +1,0 @@
-# 字体
-font_regular : ./font/NotoSansSC-Regular.otf
-font_bold : ./font/NotoSansSC-Bold.otf
-# 白边
-padding : 120
-# 字体大小
-font_size : 80
-# 缺省值
-default_exif_message : "N/A"
