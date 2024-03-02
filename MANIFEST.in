@@ -1,0 +1,3 @@
+include ./frame/font/*
+include ./frame/logo/*
+include ./frame/config.yaml
