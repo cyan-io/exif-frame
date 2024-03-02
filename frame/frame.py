@@ -5,6 +5,8 @@ from .util import (
     get_camera_info,
     get_printalbe_text,
     print_in_red,
+    print_in_yellow,
+    print_in_green,
 )
 import pathlib
 import argparse
@@ -90,7 +92,7 @@ def exec(image_path):
     try:
         signature = Image.open(signature_path)
     except Exception as e:
-        print_in_red("JUMP: signature not exists")
+        print_in_yellow("JUMP: signature not exists")
         signature = None
     finally:
         if signature:
@@ -185,24 +187,32 @@ def exec(image_path):
 
     # 保存
     ori_path = pathlib.Path(image_path)
-    final_image.save(ori_path.parent / f"{ori_path.stem}_exif_frame{ori_path.suffix}")
+    dst_path = ori_path.parent / f"{ori_path.stem}_exif_frame{ori_path.suffix}"
+    final_image.save(dst_path)
+    print_in_green(f"Done: {str(dst_path)}")
 
 
 def main():
     print(
         "=" * 64,
-        "Exif-Frame v1.0.0",
-        "\thttps://github.com/cyan-io/exif-frame",
-        "\thttps://space.bilibili.com/266211787",
+        """
+    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    ██░▄▄▄█▄▀█▀▄█▄░▄██░▄▄▄█████░▄▄▄██░▄▄▀█░▄▄▀██░▄▀▄░██░▄▄▄██
+    ██░▄▄▄███░████░███░▄▄██▄▄██░▄▄███░▀▀▄█░▀▀░██░█░█░██░▄▄▄██
+    ██░▀▀▀█▀▄█▄▀█▀░▀██░████████░█████░██░█░██░██░███░██░▀▀▀██
+    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+""",
+"         v1.0.0 | https://github.com/cyan-io/exif-frame",
         "-" * 64,
         sep="\n",
     )
     print(
-        f"CONFIG    {config_path}",
-        f"FONT_NORM {font_norm_path}",
-        f"FONT_BOLD {font_bold_path}",
-        f"LOGO_DIR  {logo_path}",
-        f"SIGNATURE {signature_path}",
+        "You can customize your OWN exif frame by modifying these files:",
+        f" -CONFIG    {config_path}",
+        f" -FONT_NORM {font_norm_path}",
+        f" -FONT_BOLD {font_bold_path}",
+        f" -LOGO_DIR  {logo_path}",
+        f" -SIGNATURE {signature_path}",
         "-" * 64,
         sep="\n",
     )

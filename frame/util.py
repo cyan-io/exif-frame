@@ -15,7 +15,6 @@ def print_in_red(*args, **kwargs):
 
 def print_in_green(*args, **kwargs):
     _print_in_color("\033[0;32m", *args, **kwargs)
-    print(*args, **kwargs)
 
 
 def print_in_yellow(*args, **kwargs):
