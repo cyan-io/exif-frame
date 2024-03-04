@@ -9,7 +9,37 @@
 | 1.0.0 | 2024-03-03 | 增加署名支持<br />优化边框样式<br />支持pip安装 |
 | 0.93  |            | 增加焦距信息                                    |
 
-## 使用方式
+
+## 使用
+
+```bash
+frame [-h] photographs [photographs ...]
+```
+
+```text
+>frame
+================================================================
+
+    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    ██░▄▄▄█▄▀█▀▄█▄░▄██░▄▄▄█████░▄▄▄██░▄▄▀█░▄▄▀██░▄▀▄░██░▄▄▄██
+    ██░▄▄▄███░████░███░▄▄██▄▄██░▄▄███░▀▀▄█░▀▀░██░█░█░██░▄▄▄██
+    ██░▀▀▀█▀▄█▄▀█▀░▀██░████████░█████░██░█░██░██░███░██░▀▀▀██
+    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+
+         v1.0.0 | https://github.com/cyan-io/exif-frame
+----------------------------------------------------------------
+You can customize your OWN exif frame by modifying these files:
+ -CONFIG    C:\Users\natsu\anaconda3\Lib\site-packages\frame\config.yaml
+ -FONT_NORM C:\Users\natsu\anaconda3\Lib\site-packages\frame\font\NotoSansSC-Regular.otf
+ -FONT_BOLD C:\Users\natsu\anaconda3\Lib\site-packages\frame\font\NotoSansSC-Bold.otf
+ -LOGO_DIR  C:\Users\natsu\anaconda3\Lib\site-packages\frame\logo\
+ -SIGNATURE C:\Users\natsu\anaconda3\Lib\site-packages\frame\signature.png
+----------------------------------------------------------------
+usage: frame [-h] photographs [photographs ...]
+frame: error: the following arguments are required: photographs
+```
+
+## 安装
 
 ### 使用`pip`安装（推荐）
 
