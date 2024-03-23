@@ -6,6 +6,9 @@ clean:
 install:
 	pip install .
 
+dev:
+	pip install -e .
+
 wheel:
 	python setup.py bdist_wheel
 
