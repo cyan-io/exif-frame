@@ -46,7 +46,7 @@ COLOR_GREY = (100, 100, 100)
 EXIF_CONTENT_HEIGHT = 256
 
 
-def exec(image_path):
+def exec(image_path, _quality):
     # extract Exif
     exif_data = get_exif_data(image_path)
     camera_info = get_camera_info(exif_data)
@@ -163,7 +163,9 @@ def exec(image_path):
     try:
         logo = Image.open(pkg_resources.resource_filename(__name__, f"logo/{make}.png"))
     except Exception as e:
-        print_in_red(f"请存放 {make}.png 至 {logo_path}\nMissing {make}.png in {logo_path}")
+        print_in_red(
+            f"请存放 {make}.png 至 {logo_path}\nMissing {make}.png in {logo_path}"
+        )
         logo = None
     finally:
         if logo:
@@ -188,7 +190,7 @@ def exec(image_path):
     # 保存
     ori_path = pathlib.Path(image_path)
     dst_path = ori_path.parent / f"{ori_path.stem}_exif_frame{ori_path.suffix}"
-    final_image.save(dst_path)
+    final_image.save(dst_path, quality=_quality)
     print_in_green(f"Done: {str(dst_path)}")
 
 
@@ -202,7 +204,7 @@ def main():
     ██░▀▀▀█▀▄█▄▀█▀░▀██░████████░█████░██░█░██░██░███░██░▀▀▀██
     ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 """,
-"         v1.0.0 | https://github.com/cyan-io/exif-frame",
+        "         v1.0.5 | https://github.com/cyan-io/exif-frame",
         "-" * 64,
         sep="\n",
     )
@@ -217,13 +219,14 @@ def main():
         sep="\n",
     )
     argparser = argparse.ArgumentParser(prog="frame")
-    argparser.add_argument("photographs", nargs="+", help="input file paths")
+    argparser.add_argument("-q", "--quality", type=int, default=95, help="jpg quality")
+    argparser.add_argument("photographs", nargs="+", help="input photographs' paths")
     args = argparser.parse_args()
 
     for photo in args.photographs:
         print(f">>> {photo}", sep="\n")
         try:
-            exec(photo)
+            exec(photo, args.quality)
         except Exception as e:
             print_in_red("Failed: Try to Check the EXIF Infomation", e, sep="\n")
         print("-" * 64)
