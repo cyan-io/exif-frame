@@ -5,7 +5,7 @@
     exif frame in an instant without any external dependence
 </center>
 
-![sample](./docs/sample.avif)
+![sample](https://github.com/cyan-io/exif-frame/raw/main/docs/sample.avif)
 
 | 版本  | 日期       | 更新日志                                        |
 | ----- | ---------- | ----------------------------------------------- |

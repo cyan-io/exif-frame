@@ -14,3 +14,6 @@ wheel:
 
 exe:
 	pyinstaller -y -D --add-data ./frame/font;./frame/font --add-data ./frame/logo;./frame/logo -n frame -i icon.ico main.py
+
+upload:
+	python -m twine upload dist/*
